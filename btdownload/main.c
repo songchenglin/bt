@@ -10,7 +10,7 @@
 
 int main(const int argc, const char **argv)
 {
-    parase_arguments(argc, argv);
+    parase_cmd_line_arguments(argc, argv);
     return 0;
 }
 void print_usage(void)
@@ -22,14 +22,14 @@ void print_usage(void)
     fprintf(stderr, "%s", usage);
     exit(EXIT_SUCCESS);
 }
-void parase_arguments(const int argc, const char *argv[])
+void parase_cmd_line_arguments(const int argc, const char *argv[])
 {
     int opt;
     DBG_INFO("%d", argc);
     if(argc < 1) {
         print_usage();
     }
-    while((opt = getopt(argc, argv, "f:p:h")) != -1) {
+    while((opt = getopt((int)argc, (char *const *)argv, "f:p:h")) != -1) {
         switch(opt) {
         case 'f':
             printf("-f %d",(int)strlen(optarg));

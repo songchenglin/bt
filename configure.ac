@@ -4,6 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT([btdownload], [0.1], [songchenglin92@gmail.com])
 AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([btdownload/main.c])
 LT_INIT
