@@ -12,6 +12,7 @@ static main_argument_t main_arg;
 int main(const int argc, const char **argv)
 {
     parase_cmd_line_arguments(argc, argv);
+    torrent_init(main_arg.torrent_name);
     return 0;
 }
 void print_usage(void)
@@ -35,7 +36,7 @@ void parase_cmd_line_arguments(const int argc, const char *argv[])
 {
     int opt;
     int len;
-    DBG_INFO("Get  %d  argument(s) from cmd line", argc);
+    DBG_LOW("Get  %d  argument(s) from cmd line", argc);
     if(argc < 1) {
         print_usage();
     }

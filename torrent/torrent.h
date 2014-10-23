@@ -48,7 +48,7 @@
 #define TORRENT_DIC_HEAD 'd'
 #define TORRENT_DIC_TAIL 'e'
 
-typedef enum{
+typedef enum {
     TORRENT_VALUE_BIN     = 0,
     TORRENT_VALUE_INTEGER = 1,
     TORRENT_VALUE_STRING  = 2,
@@ -56,5 +56,15 @@ typedef enum{
     TORRENT_VALUE_DIC     = 4,
     TORRENT_VALUE_MAX     = 5,
 }torrent_value_type_t;
+typedef struct {
+    unsigned char url[256];
+}__attribute__((packed)) announce_addr_t;
+typedef struct {
+    announce_addr_t announce;
+    unsigned int creation_date;
+    unsigned char *comment;
+    unsigned char *author;
+}__attribute__((packed)) torrent_info_t;
 
+void torrent_init(const char *f_name);
 #endif

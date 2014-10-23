@@ -24,7 +24,8 @@ AC_CHECK_HEADERS([stdlib.h string.h unistd.h])
 
 AC_CONFIG_FILES([
                  Makefile
-                 btdownload/Makefile
                  debug/Makefile
+                 torrent/Makefile
+                 btdownload/Makefile
                  ])
 AC_OUTPUT
