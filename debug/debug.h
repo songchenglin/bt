@@ -15,7 +15,7 @@ void log_print(debug_level_t level, const char *fmt, ...);
 
 #define DBG_INFO(fmt, args...) \
     do { \
-        log_print(DEBUG_LEVEL_INFO, "[%s:%d]%s->"fmt"\n", \
+        log_print(DEBUG_LEVEL_INFO, "[%s:%d](%s)"fmt"\n", \
                 __FILE__, __LINE__, __func__, ##args); \
     } while(0)
 #endif

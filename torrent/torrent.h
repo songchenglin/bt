@@ -57,11 +57,4 @@ typedef enum{
     TORRENT_VALUE_MAX     = 5,
 }torrent_value_type_t;
 
-typedef struct {
-}__attribute__((packet)) torrent_dic_t;
-typedef struct {
-    unsigned char *key;
-    unsigned char *value;
-}__attribute__((packet)) torrent_list_t;
-
 #endif

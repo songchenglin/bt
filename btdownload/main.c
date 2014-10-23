@@ -8,6 +8,7 @@
 #include "torrent.h"
 
 
+static main_argument_t main_arg;
 int main(const int argc, const char **argv)
 {
     parase_cmd_line_arguments(argc, argv);
@@ -22,19 +23,38 @@ void print_usage(void)
     fprintf(stderr, "%s", usage);
     exit(EXIT_SUCCESS);
 }
+void print_version(void)
+{
+    char version[] = "BT downloader\n"
+        "Version 1.0\n"
+        "Author by Songchenglin\n";
+    fprintf(stderr, "%s", version);
+    exit(EXIT_SUCCESS);
+}
 void parase_cmd_line_arguments(const int argc, const char *argv[])
 {
     int opt;
-    DBG_INFO("%d", argc);
+    int len;
+    DBG_INFO("Get  %d  argument(s) from cmd line", argc);
     if(argc < 1) {
         print_usage();
     }
-    while((opt = getopt((int)argc, (char *const *)argv, "f:p:h")) != -1) {
+    while((opt = getopt((int)argc, (char *const *)argv, "hf:p:v")) != -1) {
         switch(opt) {
         case 'f':
-            printf("-f %d",(int)strlen(optarg));
+            len = strlen(optarg);
+            main_arg.torrent_name = (unsigned char *)malloc(len+1);
+            memcpy(main_arg.torrent_name, optarg, len+1);
+            DBG_INFO("Torrent: %s", main_arg.torrent_name);
             break;
         case 'p':
+            len = strlen(optarg);
+            main_arg.path = (unsigned char *)malloc(len+1);
+            memcpy(main_arg.path, optarg, len+1);
+            DBG_INFO("Save to path: %s", main_arg.path);
+            break;
+        case 'v':
+            print_version();
             break;
         case 'h':
         default:
