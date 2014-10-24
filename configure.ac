@@ -11,9 +11,10 @@ LT_INIT
 
 # Checks for programs.
 AC_PROG_CC
+AC_PROG_RANLIB
 
 # Checks for libraries.
-AC_CHECK_LIB([libdebug], [log_print])
+AC_CHECK_LIB([libdebug], [debug_log_print])
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdlib.h string.h unistd.h])
@@ -21,6 +22,8 @@ AC_CHECK_HEADERS([stdlib.h string.h unistd.h])
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
+AC_FUNC_MALLOC
+AC_CHECK_FUNCS([memset strerror])
 
 AC_CONFIG_FILES([
                  Makefile
