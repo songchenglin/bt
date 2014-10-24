@@ -4,46 +4,42 @@
 #include <string.h>
 
 typedef enum {
-    DEBUG_LEVEL_INFO = 0,
-    DEBUG_LEVEL_LOW  = 1,
-    DEBUG_LEVEL_MED  = 2,
-    DEBUG_LEVEL_HIGH = 3,
-    DEBUG_LEVEL_ERR  = 4,
-    DEBUG_LEVEL_MAX  = 5,
+    DEBUG_LEVEL_INFO = 0, //Common info
+    DEBUG_LEVEL_LOG  = 1, //Debug info
+    DEBUG_LEVEL_ERR  = 2, //Fatal error, pirnt to stderr
+    DEBUG_LEVEL_MAX  = 3, //Invalid value
 }debug_level_t;
+extern unsigned int g_debug;
 
-void log_print(debug_level_t level, const char *fmt, ...);
+void debug_log_print(debug_level_t level, const char *fmt, ...);
+void debug_dump_hex(const unsigned char *buf, int len);
 
 #define DBG_INFO(fmt, args...) \
     do { \
-        log_print(DEBUG_LEVEL_INFO, "[%s:%d](%s)"fmt"\n", \
+        debug_log_print(DEBUG_LEVEL_INFO, "[%s:%d](%s)"fmt"\n", \
                 __FILE__, __LINE__, __func__, ##args); \
     } while(0)
-#define DBG_LOW(fmt, args...) \
+#define DBG_LOG(fmt, args...) \
     do { \
-        log_print(DEBUG_LEVEL_LOW, "[%s:%d](%s)"fmt"\n", \
-                __FILE__, __LINE__, __func__, ##args); \
-    } while(0)
-#define DBG_MED(fmt, args...) \
-    do { \
-        log_print(DEBUG_LEVEL_MED, "[%s:%d](%s)"fmt"\n", \
-                __FILE__, __LINE__, __func__, ##args); \
-    } while(0)
-#define DBG_HIGH(fmt, args...) \
-    do { \
-        log_print(DEBUG_LEVEL_HIGH, "[%s:%d](%s)"fmt"\n", \
+        debug_log_print(DEBUG_LEVEL_LOG, "[%s:%d](%s)"fmt"\n", \
                 __FILE__, __LINE__, __func__, ##args); \
     } while(0)
 #define DBG_ERR(fmt, args...) \
     do { \
-        log_print(DEBUG_LEVEL_ERR, "[%s:%d](%s)"fmt"\n", \
+        debug_log_print(DEBUG_LEVEL_ERR, "[%s:%d](%s)"fmt"\n", \
                 __FILE__, __LINE__, __func__, ##args); \
     } while(0)
 #define DBG_ERRNO(errno, fmt, args...) \
     do { \
-        log_print(DEBUG_LEVEL_ERR, "[%s:%d](%s)"fmt"\n", \
+        debug_log_print(DEBUG_LEVEL_ERR, "[%s:%d](%s)"fmt"\n", \
                 __FILE__, __LINE__, __func__, ##args); \
-        log_print(DEBUG_LEVEL_ERR, "\nReason--->%s\n\n", \
+        debug_log_print(DEBUG_LEVEL_ERR, "\nReason--->%s\n\n", \
                 strerror(errno)); \
+    } while(0)
+#define DUMP_MEM(buf, len) \
+    do { \
+        DBG_LOG("Dump Memery<%s> Addr=0x%p, len=%d", \
+                #buf, buf, len); \
+        debug_dump_hex((unsigned char *)buf, len); \
     } while(0)
 #endif

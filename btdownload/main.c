@@ -36,7 +36,7 @@ void parase_cmd_line_arguments(const int argc, const char *argv[])
 {
     int opt;
     int len;
-    DBG_LOW("Get  %d  argument(s) from cmd line", argc);
+    DBG_LOG("Get  %d  argument(s) from cmd line", argc);
     if(argc < 2) {
         print_usage();
     }

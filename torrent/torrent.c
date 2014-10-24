@@ -27,17 +27,21 @@ void torrent_init(const char *f_name)
 
     memset(&s_buf, 0, sizeof(s_buf));
     stat(f_name, &s_buf);
+    if(S_ISDIR(s_buf.st_mode)) {
+        DBG_ERR("f_name \"%s\" is a directory", f_name);
+        exit(EXIT_FAILURE);
+    }
     f_len = (unsigned int)s_buf.st_size;
-    DBG_LOW("Malloc %d bytes mem for torrent buf", f_len);
+    DBG_LOG("Malloc %d bytes mem for torrent buf", f_len);
     torrent_buf = (unsigned char *)malloc(f_len);
-    DBG_LOW("Malloc torrent buf addr = 0x%p", torrent_buf);
+    DBG_LOG("Malloc torrent buf addr = 0x%p", torrent_buf);
     if(torrent_buf == NULL) {
         DBG_ERRNO(errno, "Malloc failed.");
         exit(EXIT_FAILURE);
     }
 
     read_len = fread(torrent_buf, sizeof(unsigned char), f_len, fp);
-    DBG_LOW("Read %d bytes from torrent, file len = %d", read_len, f_len);
+    DBG_LOG("Read %d bytes from torrent, file len = %d", read_len, f_len);
     if(read_len != f_len) {
         DBG_ERR("Read %d bytes, but torrent is %d bytes", read_len, f_len);
         exit(EXIT_FAILURE);
