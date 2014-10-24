@@ -5,6 +5,7 @@
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "debug.h"
 #include "torrent.h"
 
@@ -17,6 +18,7 @@ void torrent_init(const char *f_name)
     unsigned int read_len = 0;
 
     DBG_INFO("Start torrent_init ...");
+    assert(f_name);
     fp = fopen(f_name, "r");
     if(fp == NULL) {
         DBG_ERRNO(errno, "Open \"%s\" failed.", f_name);

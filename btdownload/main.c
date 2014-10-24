@@ -37,7 +37,7 @@ void parase_cmd_line_arguments(const int argc, const char *argv[])
     int opt;
     int len;
     DBG_LOW("Get  %d  argument(s) from cmd line", argc);
-    if(argc < 1) {
+    if(argc < 2) {
         print_usage();
     }
     while((opt = getopt((int)argc, (char *const *)argv, "hf:p:v")) != -1) {
@@ -62,5 +62,13 @@ void parase_cmd_line_arguments(const int argc, const char *argv[])
             print_usage();
             break;
         }
+    }
+    if(main_arg.torrent_name == NULL) {
+        DBG_ERR("No torrent input");
+        print_usage();
+    }
+    if(main_arg.path == NULL) {
+        DBG_INFO("No save path input, use default");
+        main_arg.path = "./";
     }
 }
