@@ -39,6 +39,7 @@ void torrent_init(const char *f_name)
         DBG_ERRNO(errno, "Malloc failed.");
         exit(EXIT_FAILURE);
     }
+    memset(torrent_buf, 0, f_len);
 
     read_len = fread(torrent_buf, sizeof(unsigned char), f_len, fp);
     DBG_LOG("Read %d bytes from torrent, file len = %d", read_len, f_len);
